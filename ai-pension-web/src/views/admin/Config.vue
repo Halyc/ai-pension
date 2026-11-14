@@ -33,7 +33,7 @@
         <el-table-column prop="description" label="描述" min-width="200">
           <template #default="{ row }">{{ row.description || '-' }}</template>
         </el-table-column>
-        <el-table-column label="操作" min-width="110">
+        <el-table-column label="操作" min-width="150" align="center" header-align="center">
           <template #default="{ row }">
             <el-button link type="warning" :icon="Edit" @click="openDialog(row)">编辑</el-button>
           </template>
@@ -156,6 +156,6 @@ onMounted(loadList)
 }
 .config-value {
   word-break: break-all;
-  color: #303133;
+  color: var(--text-main);
 }
 </style>

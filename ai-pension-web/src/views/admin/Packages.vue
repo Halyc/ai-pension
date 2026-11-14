@@ -47,7 +47,7 @@
         <el-table-column prop="create_time" label="创建时间" min-width="160">
           <template #default="{ row }">{{ formatDateTime(row.create_time) }}</template>
         </el-table-column>
-        <el-table-column label="操作" min-width="260">
+        <el-table-column label="操作" min-width="280" align="center" header-align="center">
           <template #default="{ row }">
             <el-button link type="primary" :icon="Clock" @click="openSlotsDialog(row)">
               时段管理
@@ -240,7 +240,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作" width="120" align="center" header-align="center">
           <template #default="{ row }">
             <el-button link type="danger" :icon="Delete" @click="removeSlot(row)">删除</el-button>
           </template>
@@ -611,7 +611,7 @@ onMounted(loadList)
   width: 56px;
   height: 40px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(237, 245, 242, 0.8);
   color: var(--text-muted);
   font-size: 12px;
   display: flex;
@@ -631,7 +631,7 @@ onMounted(loadList)
 .slot-generate {
   margin-bottom: 14px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--card-border);
 }
 .slot-toolbar {

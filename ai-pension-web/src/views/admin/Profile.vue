@@ -20,7 +20,7 @@
         </div>
         <div class="hero-name">{{ profile.real_name || profile.phone }}</div>
         <div class="hero-phone">{{ profile.phone }}</div>
-        <el-tag type="danger" effect="dark" round size="large">系统管理员</el-tag>
+        <el-tag type="danger" effect="dark" round size="large" class="admin-role-tag">系统管理员</el-tag>
 
         <div class="hero-stats">
           <div class="stat-item">
@@ -120,7 +120,12 @@ const pwdDialogVisible = ref(false)
 const avatarFileInput = ref()
 
 const imgRefreshTick = ref(0)
-function profileAvatar(row) { imgRefreshTick.value; return buildAvatar(row) }
+function profileAvatar(row) {
+  imgRefreshTick.value
+  const src = buildAvatar(row)
+  // Let the admin theme control the text fallback instead of the legacy purple SVG.
+  return src.startsWith('data:image/svg+xml') ? '' : src
+}
 window.addEventListener('image-cache-ready', () => { imgRefreshTick.value++ })
 window.addEventListener('user-avatar-updated', () => { imgRefreshTick.value++ })
 
@@ -254,7 +259,7 @@ onMounted(loadProfile)
 <style scoped>
 .google-style {
   padding: 48px 24px 64px;
-  background: #fafafa;
+  background: transparent;
   min-height: 100%;
 }
 .profile-wrap {
@@ -267,9 +272,10 @@ onMounted(loadProfile)
 .profile-hero {
   text-align: center;
   padding: 40px 32px 32px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
 }
 .avatar-wrapper {
   position: relative;
@@ -296,20 +302,25 @@ onMounted(loadProfile)
 }
 .avatar-wrapper:hover .avatar-overlay { opacity: 1; }
 .hero-avatar {
-  background: linear-gradient(135deg, #ff5c72 0%, #ff8a5c 100%) !important;
+  background: linear-gradient(135deg, #d9963e 0%, #b47a2d 100%) !important;
   color: #fff !important;
   font-size: 40px;
-  box-shadow: 0 8px 24px rgba(255, 92, 114, 0.35);
+  box-shadow: 0 8px 24px rgba(180, 122, 45, 0.26);
+}
+.admin-role-tag {
+  color: #8d5b1f !important;
+  background: linear-gradient(135deg, #fbf1df, #ecd09d) !important;
+  border: 1px solid rgba(196, 125, 38, 0.14) !important;
 }
 .hero-name {
   font-size: 24px;
   font-weight: 600;
-  color: #202124;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 .hero-phone {
   font-size: 14px;
-  color: #5f6368;
+  color: var(--text-sub);
   margin-bottom: 12px;
 }
 .hero-stats {
@@ -318,7 +329,7 @@ onMounted(loadProfile)
   gap: 40px;
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-light);
 }
 .stat-item {
   display: flex;
@@ -328,26 +339,27 @@ onMounted(loadProfile)
 }
 .stat-label {
   font-size: 12px;
-  color: #80868b;
+  color: var(--text-muted);
   letter-spacing: 0.5px;
 }
 .stat-value {
   font-size: 20px;
   font-weight: 600;
-  color: #202124;
+  color: var(--text-main);
   font-variant-numeric: tabular-nums;
 }
 .stat-value.small {
   font-size: 13px;
   font-weight: 500;
-  color: #5f6368;
+  color: var(--text-sub);
 }
 
 .profile-form-card {
   padding: 40px 48px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
 }
 .profile-form {
   max-width: 480px;
@@ -373,34 +385,34 @@ onMounted(loadProfile)
 }
 .btn-save {
   color: #fff;
-  background: linear-gradient(135deg, #ff5c72 0%, #ff8a5c 100%);
-  box-shadow: 0 4px 14px rgba(255, 92, 114, 0.4);
+  background: linear-gradient(135deg, #347f70 0%, #1f6559 100%);
+  box-shadow: 0 4px 14px rgba(31, 101, 89, 0.24);
 }
 .btn-save:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(255, 92, 114, 0.55);
+  box-shadow: 0 6px 18px rgba(31, 101, 89, 0.32);
 }
 .btn-change-pwd {
-  color: #fff;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.35);
+  color: #8d5b1f;
+  background: linear-gradient(135deg, #fbf1df 0%, #ecd09d 100%);
+  box-shadow: 0 4px 14px rgba(217, 150, 62, 0.16);
 }
 .btn-change-pwd:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 6px 18px rgba(217, 150, 62, 0.25);
 }
 
 :deep(.el-form-item__label) {
-  color: #5f6368;
+  color: var(--text-sub);
   font-size: 14px;
 }
 :deep(.el-input__wrapper),
 :deep(.el-date-editor.el-input .el-input__wrapper) {
   border-radius: 8px;
-  box-shadow: 0 0 0 1px #dadce0 inset;
+  box-shadow: 0 0 0 1px var(--border-light) inset;
 }
 :deep(.el-input__wrapper.is-focus),
 :deep(.el-input__wrapper.is-focus-within) {
-  box-shadow: 0 0 0 2px #1a73e8 inset;
+  box-shadow: 0 0 0 1px #2f7d6d inset;
 }
 </style>

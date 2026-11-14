@@ -1,5 +1,5 @@
 <template>
-  <el-container class="layout-wrapper">
+  <el-container class="layout-wrapper admin-layout">
     <el-aside :width="isCollapse ? '72px' : '240px'" class="sidebar">
       <div class="logo">
         <div class="logo-icon-wrap">
@@ -25,7 +25,7 @@
         :collapse="isCollapse"
         :collapse-transition="false"
         background-color="transparent"
-        text-color="#5a607a"
+        text-color="#5f736d"
         active-text-color="#ffffff"
         router
       >
@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/user'
@@ -115,6 +115,9 @@ const router = useRouter()
 const userStore = useUserStore()
 const isCollapse = ref(false)
 const globalRefreshTick = ref(0)
+
+onMounted(() => document.body.classList.add('admin-theme'))
+onUnmounted(() => document.body.classList.remove('admin-theme'))
 
 window.addEventListener('storage', (e) => {
   if (e.key && (e.key.startsWith('img:') || e.key.startsWith('imgcache:'))) {
@@ -178,14 +181,14 @@ async function onCommand(cmd) {
 .layout-wrapper { height: 100%; }
 
 .sidebar {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   position: relative;
-  border-right: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 4px 0 24px rgba(74, 144, 226, 0.06);
+  border-right: 1px solid rgba(40, 74, 65, 0.08);
+  box-shadow: 4px 0 28px rgba(38, 76, 65, 0.055);
 }
 
 .logo {
@@ -198,7 +201,7 @@ async function onCommand(cmd) {
   font-weight: 700;
   font-size: 18px;
   white-space: nowrap;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(40, 74, 65, 0.08);
   position: relative;
   z-index: 1;
   padding: 0 16px;
@@ -208,11 +211,11 @@ async function onCommand(cmd) {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(145deg, #347f70 0%, #1f6559 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.45);
+  box-shadow: 0 7px 20px rgba(31, 101, 89, 0.24);
   flex-shrink: 0;
 }
 
@@ -223,7 +226,7 @@ async function onCommand(cmd) {
 }
 
 .logo-text {
-  background: var(--primary-gradient);
+  background: linear-gradient(135deg, #286e61 0%, #5e8478 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -238,12 +241,12 @@ async function onCommand(cmd) {
   position: relative;
 }
 
-.menu-item:hover { background: rgba(74, 144, 226, 0.08) !important; }
+.menu-item:hover { background: rgba(47, 125, 109, 0.07) !important; }
 
 .menu-icon {
   font-size: 19px;
   margin-right: 10px;
-  color: #5a607a;
+  color: var(--text-sub);
   transition: color 0.3s;
 }
 
@@ -262,7 +265,7 @@ async function onCommand(cmd) {
 :deep(.el-menu-item.is-active) {
   background: var(--primary-gradient) !important;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.35);
+  box-shadow: 0 7px 20px rgba(31, 101, 89, 0.24);
   border: none;
 }
 
@@ -279,7 +282,7 @@ async function onCommand(cmd) {
 
 .footer-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(40, 74, 65, 0.12), transparent);
   margin-bottom: 12px;
 }
 
@@ -292,13 +295,13 @@ async function onCommand(cmd) {
 }
 
 .header {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.76);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(40, 74, 65, 0.075);
   padding: 0 28px;
   position: sticky;
   top: 0;
@@ -318,14 +321,14 @@ async function onCommand(cmd) {
   cursor: pointer;
   color: var(--text-sub);
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(40, 74, 65, 0.08);
 }
 
 .collapse-btn:hover {
   color: var(--primary-color);
-  background: rgba(74, 144, 226, 0.08);
-  border-color: rgba(74, 144, 226, 0.25);
+  background: rgba(47, 125, 109, 0.07);
+  border-color: rgba(47, 125, 109, 0.22);
   transform: scale(1.05);
 }
 
@@ -338,20 +341,20 @@ async function onCommand(cmd) {
   padding: 6px 16px 6px 6px;
   border-radius: 999px;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(40, 74, 65, 0.08);
 }
 
 .user-info:hover {
-  background: rgba(74, 144, 226, 0.08);
-  border-color: rgba(74, 144, 226, 0.25);
+  background: rgba(47, 125, 109, 0.07);
+  border-color: rgba(47, 125, 109, 0.22);
 }
 
 .user-avatar {
   background: var(--primary-gradient) !important;
   color: #fff !important;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+  box-shadow: 0 4px 12px rgba(31, 101, 89, 0.22);
 }
 
 .user-details { display: flex; flex-direction: column; line-height: 1.3; }
@@ -368,9 +371,9 @@ async function onCommand(cmd) {
 }
 
 .admin-badge {
-  background: linear-gradient(135deg, #ff5c72, #ff8a5c) !important;
-  border: none !important;
-  color: #fff !important;
+  background: linear-gradient(135deg, #fbf1df, #ecd09d) !important;
+  border: 1px solid rgba(196, 125, 38, 0.16) !important;
+  color: #8d5b1f !important;
   font-weight: 600;
   letter-spacing: 0.5px;
 }
@@ -393,13 +396,13 @@ async function onCommand(cmd) {
 }
 
 .admin-menu-popper {
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(255, 253, 248, 0.97) !important;
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(40, 74, 65, 0.09) !important;
   border-radius: 14px !important;
   padding: 6px !important;
-  box-shadow: 0 16px 48px rgba(74, 144, 226, 0.15) !important;
+  box-shadow: 0 16px 48px rgba(38, 76, 65, 0.13) !important;
 }
 
 .admin-menu-popper .el-dropdown-menu__item {
@@ -411,13 +414,13 @@ async function onCommand(cmd) {
 }
 
 .admin-menu-popper .el-dropdown-menu__item:hover {
-  background: rgba(74, 144, 226, 0.08) !important;
+  background: rgba(47, 125, 109, 0.07) !important;
   color: var(--primary-color) !important;
 }
 
 .admin-menu-popper .el-dropdown-menu__item.is-divided {
   margin-top: 4px !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-top: 1px solid rgba(40, 74, 65, 0.09) !important;
   padding-top: 12px !important;
 }
 

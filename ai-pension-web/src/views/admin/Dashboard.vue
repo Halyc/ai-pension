@@ -20,8 +20,8 @@
         :lg="6"
         :xl="6"
       >
-        <div class="stat-card hover-card" :style="{ borderTop: `4px solid ${card.color}` }">
-          <div class="stat-icon" :style="{ background: card.color }">
+        <div class="stat-card hover-card" :style="{ '--stat-accent': card.color }">
+          <div class="stat-icon">
             <el-icon :size="26"><component :is="card.icon" /></el-icon>
           </div>
           <div class="stat-info">
@@ -176,22 +176,22 @@ const todayLabel = new Date().toLocaleDateString('zh-CN', {
 })
 
 const cards = [
-  { key: 'totalMembers', label: '会员总数', icon: User, color: '#2f9e8f' },
-  { key: 'todayNewMembers', label: '今日新增会员', icon: Plus, color: '#4facfe' },
-  { key: 'totalAppointments', label: '预约总数', icon: Tickets, color: '#f6a23b' },
-  { key: 'todayAppointments', label: '今日预约', icon: Calendar, color: '#ff7a7a' },
-  { key: 'totalActivities', label: '活动总数', icon: Flag, color: '#8e7cf3' },
-  { key: 'ongoingActivities', label: '进行中活动', icon: Odometer, color: '#22b8a0' },
-  { key: 'aiChatCount', label: 'AI 对话次数', icon: ChatDotRound, color: '#e85fa8' }
+  { key: 'totalMembers', label: '会员总数', icon: User, color: '#2f7d6d' },
+  { key: 'todayNewMembers', label: '今日新增会员', icon: Plus, color: '#608ca5' },
+  { key: 'totalAppointments', label: '预约总数', icon: Tickets, color: '#d9963e' },
+  { key: 'todayAppointments', label: '今日预约', icon: Calendar, color: '#cf7d70' },
+  { key: 'totalActivities', label: '活动总数', icon: Flag, color: '#7c8e67' },
+  { key: 'ongoingActivities', label: '进行中活动', icon: Odometer, color: '#4f9b7b' },
+  { key: 'aiChatCount', label: 'AI 对话次数', icon: ChatDotRound, color: '#9b7e91' }
 ]
 
 const quickEntries = [
-  { label: '用户管理', path: '/admin/members', icon: User, color: '#2f9e8f' },
-  { label: '套餐与时段', path: '/admin/packages', icon: Calendar, color: '#f6a23b' },
-  { label: '预约记录', path: '/admin/appointments', icon: Tickets, color: '#4facfe' },
-  { label: '活动与报名', path: '/admin/activities', icon: Flag, color: '#8e7cf3' },
-  { label: '问卷评测', path: '/admin/assessments', icon: DataAnalysis, color: '#e85fa8' },
-  { label: '系统配置', path: '/admin/config', icon: Menu, color: '#60626e' }
+  { label: '用户管理', path: '/admin/members', icon: User, color: '#2f7d6d' },
+  { label: '套餐与时段', path: '/admin/packages', icon: Calendar, color: '#d9963e' },
+  { label: '预约记录', path: '/admin/appointments', icon: Tickets, color: '#608ca5' },
+  { label: '活动与报名', path: '/admin/activities', icon: Flag, color: '#7c8e67' },
+  { label: '问卷评测', path: '/admin/assessments', icon: DataAnalysis, color: '#9b7e91' },
+  { label: '系统配置', path: '/admin/config', icon: Menu, color: '#60736d' }
 ]
 
 const trendChartRef = ref(null)
@@ -257,30 +257,30 @@ function drawTrendChart(members, appointments) {
   const apptData = months.map((m) => apptByMonth[m.key] || 0)
 
   chart.setOption({
-    tooltip: { trigger: 'axis', backgroundColor: 'rgba(30,30,40,0.92)', borderColor: 'transparent', textStyle: { color: '#fff' } },
-    legend: { data: ['会员新增', '预约数量'], top: 4, textStyle: { color: 'var(--text-sub)' } },
+    tooltip: { trigger: 'axis', backgroundColor: 'rgba(25,53,47,0.94)', borderColor: 'transparent', textStyle: { color: '#fff' } },
+    legend: { data: ['会员新增', '预约数量'], top: 4, textStyle: { color: '#5f736d' } },
     grid: { left: 44, right: 24, top: 44, bottom: 32, containLabel: false },
     xAxis: {
       type: 'category',
       boundaryGap: false,
       data: months.map((m) => m.label),
-      axisLine: { lineStyle: { color: 'var(--card-border)' } },
-      axisLabel: { color: 'var(--text-muted)' }
+      axisLine: { lineStyle: { color: '#dee9e4' } },
+      axisLabel: { color: '#8b9b96' }
     },
     yAxis: [
       {
         type: 'value',
         name: '会员',
-        nameTextStyle: { color: 'var(--text-muted)' },
-        splitLine: { lineStyle: { color: 'var(--card-border)', type: 'dashed' } },
-        axisLabel: { color: 'var(--text-muted)' }
+        nameTextStyle: { color: '#8b9b96' },
+        splitLine: { lineStyle: { color: '#dee9e4', type: 'dashed' } },
+        axisLabel: { color: '#8b9b96' }
       },
       {
         type: 'value',
         name: '预约',
-        nameTextStyle: { color: 'var(--text-muted)' },
+        nameTextStyle: { color: '#8b9b96' },
         splitLine: { show: false },
-        axisLabel: { color: 'var(--text-muted)' }
+        axisLabel: { color: '#8b9b96' }
       }
     ],
     series: [
@@ -291,12 +291,12 @@ function drawTrendChart(members, appointments) {
         symbol: 'circle',
         symbolSize: 8,
         data: memberData,
-        itemStyle: { color: '#2f9e8f' },
+        itemStyle: { color: '#2f7d6d' },
         lineStyle: { width: 3 },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(47,158,143,0.35)' },
-            { offset: 1, color: 'rgba(47,158,143,0.02)' }
+            { offset: 0, color: 'rgba(47,125,109,0.28)' },
+            { offset: 1, color: 'rgba(47,125,109,0.015)' }
           ])
         }
       },
@@ -308,12 +308,12 @@ function drawTrendChart(members, appointments) {
         symbol: 'circle',
         symbolSize: 8,
         data: apptData,
-        itemStyle: { color: '#f6a23b' },
+        itemStyle: { color: '#d9963e' },
         lineStyle: { width: 3 },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(246,162,59,0.3)' },
-            { offset: 1, color: 'rgba(246,162,59,0.02)' }
+            { offset: 0, color: 'rgba(217,150,62,0.24)' },
+            { offset: 1, color: 'rgba(217,150,62,0.015)' }
           ])
         }
       }
@@ -326,13 +326,13 @@ function drawOverviewPie() {
   if (!chart) return
 
   const indicators = [
-    { key: 'totalMembers', label: '会员总数', color: '#2f9e8f' },
-    { key: 'todayNewMembers', label: '今日新增', color: '#4facfe' },
-    { key: 'totalAppointments', label: '预约总数', color: '#f6a23b' },
-    { key: 'todayAppointments', label: '今日预约', color: '#ff7a7a' },
-    { key: 'totalActivities', label: '活动总数', color: '#8e7cf3' },
-    { key: 'ongoingActivities', label: '进行中', color: '#22b8a0' },
-    { key: 'aiChatCount', label: 'AI 对话', color: '#e85fa8' }
+    { key: 'totalMembers', label: '会员总数', color: '#2f7d6d' },
+    { key: 'todayNewMembers', label: '今日新增', color: '#608ca5' },
+    { key: 'totalAppointments', label: '预约总数', color: '#d9963e' },
+    { key: 'todayAppointments', label: '今日预约', color: '#cf7d70' },
+    { key: 'totalActivities', label: '活动总数', color: '#7c8e67' },
+    { key: 'ongoingActivities', label: '进行中', color: '#4f9b7b' },
+    { key: 'aiChatCount', label: 'AI 对话', color: '#9b7e91' }
   ]
 
   const data = indicators.map((ind) => ({
@@ -350,7 +350,7 @@ function drawOverviewPie() {
       itemWidth: 10,
       itemHeight: 10,
       itemGap: 6,
-      textStyle: { color: 'var(--text-sub)', fontSize: 11 }
+      textStyle: { color: '#5f736d', fontSize: 11 }
     },
     series: [
       {
@@ -359,10 +359,10 @@ function drawOverviewPie() {
         radius: ['45%', '72%'],
         center: ['38%', '50%'],
         avoidLabelOverlap: true,
-        itemStyle: { borderRadius: 6, borderColor: 'var(--card-bg)', borderWidth: 2 },
+        itemStyle: { borderRadius: 6, borderColor: '#fffdf8', borderWidth: 2 },
         label: { show: false },
         emphasis: {
-          label: { show: true, fontSize: 13, fontWeight: 'bold', color: 'var(--text-main)' }
+          label: { show: true, fontSize: 13, fontWeight: 'bold', color: '#19352f' }
         },
         data
       }
@@ -374,15 +374,15 @@ function drawActivityPie(activities) {
   const chart = initChart(activityPieRef.value)
   if (!chart) return
   const statusColors = {
-    RECRUITING: '#4facfe',
-    REGISTRATION_OPEN: '#4facfe',
-    REGISTRATION_CLOSED: '#f6a23b',
-    ONGOING: '#22b8a0',
-    ACTIVE: '#22b8a0',
-    ENDED: '#8e7cf3',
-    FINISHED: '#8e7cf3',
-    CANCELLED: '#ff7a7a',
-    PAUSED: '#ff9d4a'
+    RECRUITING: '#608ca5',
+    REGISTRATION_OPEN: '#608ca5',
+    REGISTRATION_CLOSED: '#d9963e',
+    ONGOING: '#4f9b7b',
+    ACTIVE: '#4f9b7b',
+    ENDED: '#7c8e67',
+    FINISHED: '#7c8e67',
+    CANCELLED: '#cf7d70',
+    PAUSED: '#b98b4d'
   }
   const labelMap = {
     RECRUITING: '报名中', REGISTRATION_OPEN: '报名中',
@@ -408,7 +408,7 @@ function drawActivityPie(activities) {
       orient: 'vertical',
       right: 8,
       top: 'middle',
-      textStyle: { color: 'var(--text-sub)' }
+      textStyle: { color: '#5f736d' }
     },
     series: [
       {
@@ -417,10 +417,10 @@ function drawActivityPie(activities) {
         radius: ['50%', '75%'],
         center: ['38%', '50%'],
         avoidLabelOverlap: true,
-        itemStyle: { borderRadius: 6, borderColor: 'var(--card-bg)', borderWidth: 2 },
+        itemStyle: { borderRadius: 6, borderColor: '#fffdf8', borderWidth: 2 },
         label: { show: false },
         emphasis: {
-          label: { show: true, fontSize: 14, fontWeight: 'bold', color: 'var(--text-main)' }
+          label: { show: true, fontSize: 14, fontWeight: 'bold', color: '#19352f' }
         },
         data
       }
@@ -456,15 +456,15 @@ function drawTopActivities(activities) {
       type: 'value',
       axisLine: { show: false },
       axisTick: { show: false },
-      splitLine: { lineStyle: { color: 'var(--card-border)', type: 'dashed' } },
-      axisLabel: { color: 'var(--text-muted)' }
+      splitLine: { lineStyle: { color: '#dee9e4', type: 'dashed' } },
+      axisLabel: { color: '#8b9b96' }
     },
     yAxis: {
       type: 'category',
       data: titles,
       axisLine: { show: false },
       axisTick: { show: false },
-      axisLabel: { color: 'var(--text-sub)' }
+      axisLabel: { color: '#5f736d' }
     },
     series: [
       {
@@ -474,14 +474,14 @@ function drawTopActivities(activities) {
           itemStyle: {
             borderRadius: [0, 8, 8, 0],
             color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-              { offset: 0, color: '#8e7cf3' },
-              { offset: 1, color: '#e85fa8' }
+              { offset: 0, color: '#7c8e67' },
+              { offset: 1, color: '#d9963e' }
             ]),
             opacity: Math.min(1, 0.45 + (v / Math.max(1, maxes[i])) * 0.55)
           }
         })),
         barWidth: 18,
-        label: { show: true, position: 'right', color: 'var(--text-sub)', fontSize: 12 }
+        label: { show: true, position: 'right', color: '#5f736d', fontSize: 12 }
       }
     ]
   })
@@ -492,11 +492,11 @@ function drawLevelChart(members) {
   if (!chart) return
   const memberOnly = members.filter((m) => (m.role || '').toUpperCase() === 'MEMBER')
   const levelColors = {
-    NORMAL: '#9ca3af',
-    SILVER: '#6b7280',
-    GOLD: '#f59e0b',
-    PLATINUM: '#8e7cf3',
-    DIAMOND: '#e85fa8'
+    NORMAL: '#a2aea9',
+    SILVER: '#7d8f89',
+    GOLD: '#d9963e',
+    PLATINUM: '#6aa596',
+    DIAMOND: '#9b7e91'
   }
   const levelLabel = {
     NORMAL: '普通',
@@ -521,13 +521,13 @@ function drawLevelChart(members) {
     xAxis: {
       type: 'category',
       data: data.map((d) => levelLabel[d.key] || d.key),
-      axisLine: { lineStyle: { color: 'var(--card-border)' } },
-      axisLabel: { color: 'var(--text-muted)' }
+      axisLine: { lineStyle: { color: '#dee9e4' } },
+      axisLabel: { color: '#8b9b96' }
     },
     yAxis: {
       type: 'value',
-      splitLine: { lineStyle: { color: 'var(--card-border)', type: 'dashed' } },
-      axisLabel: { color: 'var(--text-muted)' }
+      splitLine: { lineStyle: { color: '#dee9e4', type: 'dashed' } },
+      axisLabel: { color: '#8b9b96' }
     },
     series: [
       {
@@ -537,10 +537,10 @@ function drawLevelChart(members) {
           value: d.count,
           itemStyle: {
             borderRadius: [8, 8, 0, 0],
-            color: levelColors[d.key] || '#2f9e8f'
+            color: levelColors[d.key] || '#2f7d6d'
           }
         })),
-        label: { show: true, position: 'top', color: 'var(--text-sub)', fontSize: 12 }
+        label: { show: true, position: 'top', color: '#5f736d', fontSize: 12 }
       }
     ]
   })
@@ -597,25 +597,59 @@ onUnmounted(() => {
 
 <style scoped>
 .welcome-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(120deg, rgba(102, 126, 234, 0.18) 0%, rgba(118, 75, 162, 0.1) 100%);
-  border: 1px solid rgba(102, 126, 234, 0.25);
+  min-height: 132px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 88% 2%, rgba(241, 203, 136, 0.22), transparent 31%),
+    linear-gradient(135deg, #1f6155 0%, #286f61 54%, #327d6d 100%) !important;
+  border: 1px solid rgba(31, 101, 89, 0.2) !important;
+  box-shadow: 0 18px 42px rgba(31, 101, 89, 0.14) !important;
+}
+.welcome-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(90deg, #000, transparent 76%);
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent 76%);
+}
+.welcome-card > div,
+.welcome-card > .el-button {
+  position: relative;
+  z-index: 1;
 }
 .welcome-title {
   font-size: 20px;
   font-weight: 700;
-  color: var(--text-main);
+  color: #fff;
   letter-spacing: 0.5px;
 }
 .welcome-sub {
   font-size: 13px;
-  color: var(--text-sub);
+  color: rgba(242, 255, 251, 0.68);
   margin-top: 6px;
 }
+.welcome-card :deep(.el-button--primary) {
+  color: #214f46 !important;
+  background: #f2d7a6 !important;
+  box-shadow: 0 8px 22px rgba(8, 48, 40, 0.18) !important;
+}
+.welcome-card :deep(.el-button--primary:hover) {
+  background: #f7dfb5 !important;
+  box-shadow: 0 10px 26px rgba(8, 48, 40, 0.23) !important;
+}
 .stat-card {
-  background: rgba(255, 255, 255, 0.04);
+  --stat-accent: #2f7d6d;
+  background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-radius: 16px;
@@ -623,12 +657,23 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--card-border);
+  box-shadow: 0 9px 26px rgba(38, 76, 65, 0.07);
+  border: 1px solid rgba(222, 233, 228, 0.92);
+  border-top: 3px solid var(--stat-accent) !important;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 16px;
   position: relative;
   overflow: hidden;
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  right: -42px;
+  bottom: -50px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--stat-accent) 8%, transparent);
 }
 .stat-icon {
   width: 56px;
@@ -637,9 +682,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--stat-accent);
+  background: color-mix(in srgb, var(--stat-accent) 13%, #fff);
   flex-shrink: 0;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid color-mix(in srgb, var(--stat-accent) 10%, transparent);
 }
 .stat-value {
   font-size: 26px;
@@ -673,8 +719,8 @@ onUnmounted(() => {
   gap: 14px;
 }
 .quick-item {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(222, 233, 228, 0.94);
   border-radius: 12px;
   padding: 20px 10px;
   display: flex;
@@ -688,9 +734,10 @@ onUnmounted(() => {
 }
 .quick-item:hover {
   transform: translateY(-4px);
-  background: rgba(102, 126, 234, 0.12);
-  border-color: rgba(102, 126, 234, 0.35);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(47, 125, 109, 0.22);
   color: var(--text-main);
+  box-shadow: 0 10px 24px rgba(38, 76, 65, 0.08);
 }
 .equal-row {
   display: flex;

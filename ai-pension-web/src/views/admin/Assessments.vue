@@ -39,33 +39,41 @@
             <el-button type="primary" :icon="Plus" @click="openQnaireDialog()">新增问卷</el-button>
           </div>
 
-          <el-table :data="filteredQuestionnaires" v-loading="qnaireLoading" stripe>
-            <el-table-column prop="id" label="ID" width="70" />
+          <el-table
+            :data="filteredQuestionnaires"
+            v-loading="qnaireLoading"
+            stripe
+            class="assessment-table questionnaire-table"
+            style="width: 100%"
+          >
+            <el-table-column prop="id" label="ID" min-width="180" align="center" header-align="center" />
             <el-table-column prop="title" label="问卷标题" min-width="180" />
-            <el-table-column prop="description" label="描述" min-width="220">
+            <el-table-column prop="description" label="描述" min-width="180">
               <template #default="{ row }">{{ row.description || '-' }}</template>
             </el-table-column>
-            <el-table-column prop="status" label="状态" width="100">
+            <el-table-column prop="status" label="状态" min-width="180" align="center" header-align="center">
               <template #default="{ row }">
                 <el-tag :type="dictType(questionnaireStatusMap, row.status)">
                   {{ dictLabel(questionnaireStatusMap, row.status) }}
                 </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作" min-width="310">
+            <el-table-column label="操作" min-width="180" align="center" header-align="center">
               <template #default="{ row }">
-                <el-button link type="primary" :icon="EditPen" @click="manageQuestions(row)">
-                  题目管理
-                </el-button>
-                <el-button link type="warning" :icon="Edit" @click="openQnaireDialog(row)">编辑</el-button>
-                <el-button
-                  v-if="row.status !== 'PUBLISHED'"
-                  link
-                  type="success"
-                  :icon="Promotion"
-                  @click="publishQnaire(row)"
-                >发布</el-button>
-                <el-button link type="danger" :icon="Delete" @click="removeQnaire(row)">删除</el-button>
+                <div class="table-actions">
+                  <el-button link type="primary" :icon="EditPen" @click="manageQuestions(row)">
+                    题目管理
+                  </el-button>
+                  <el-button link type="warning" :icon="Edit" @click="openQnaireDialog(row)">编辑</el-button>
+                  <el-button
+                    v-if="row.status !== 'PUBLISHED'"
+                    link
+                    type="success"
+                    :icon="Promotion"
+                    @click="publishQnaire(row)"
+                  >发布</el-button>
+                  <el-button link type="danger" :icon="Delete" @click="removeQnaire(row)">删除</el-button>
+                </div>
               </template>
             </el-table-column>
           </el-table>
@@ -93,24 +101,32 @@
             <el-button :icon="Refresh" @click="loadQuestionnaires">刷新</el-button>
           </div>
 
-          <el-table :data="filteredQuestionnaires" v-loading="qnaireLoading" stripe>
-            <el-table-column prop="id" label="ID" width="70" />
+          <el-table
+            :data="filteredQuestionnaires"
+            v-loading="qnaireLoading"
+            stripe
+            class="assessment-table questionnaire-table"
+            style="width: 100%"
+          >
+            <el-table-column prop="id" label="ID" min-width="180" align="center" header-align="center" />
             <el-table-column prop="title" label="问卷标题" min-width="180" />
-            <el-table-column prop="description" label="描述" min-width="220">
+            <el-table-column prop="description" label="描述" min-width="180">
               <template #default="{ row }">{{ row.description || '-' }}</template>
             </el-table-column>
-            <el-table-column prop="status" label="状态" width="100">
+            <el-table-column prop="status" label="状态" min-width="180" align="center" header-align="center">
               <template #default="{ row }">
                 <el-tag :type="dictType(questionnaireStatusMap, row.status)">
                   {{ dictLabel(questionnaireStatusMap, row.status) }}
                 </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作" width="160">
+            <el-table-column label="操作" min-width="180" align="center" header-align="center">
               <template #default="{ row }">
-                <el-button link type="primary" :icon="EditPen" @click="manageQuestions(row)">
-                  题目管理
-                </el-button>
+                <div class="table-actions">
+                  <el-button link type="primary" :icon="EditPen" @click="manageQuestions(row)">
+                    题目管理
+                  </el-button>
+                </div>
               </template>
             </el-table-column>
           </el-table>
@@ -160,7 +176,13 @@
             <el-button :icon="Refresh" @click="loadResults">刷新</el-button>
           </div>
 
-          <el-table :data="filteredResults" v-loading="resultLoading" stripe>
+          <el-table
+            :data="filteredResults"
+            v-loading="resultLoading"
+            stripe
+            class="assessment-table"
+            style="width: 100%"
+          >
             <el-table-column prop="id" label="结果ID" width="90" />
             <el-table-column label="会员" min-width="140">
               <template #default="{ row }">
@@ -186,14 +208,16 @@
             <el-table-column prop="createTime" label="提交时间" min-width="160">
               <template #default="{ row }">{{ formatDateTime(row.createTime) }}</template>
             </el-table-column>
-            <el-table-column label="操作" min-width="150">
+            <el-table-column label="操作" min-width="190" align="center" header-align="center">
               <template #default="{ row }">
-                <el-button link type="primary" :icon="View" @click="showResultDetail(row)">
-                  详情
-                </el-button>
-                <el-button link type="danger" :icon="Delete" @click="removeResult(row)">
-                  删除
-                </el-button>
+                <div class="table-actions">
+                  <el-button link type="primary" :icon="View" @click="showResultDetail(row)">
+                    详情
+                  </el-button>
+                  <el-button link type="danger" :icon="Delete" @click="removeResult(row)">
+                    删除
+                  </el-button>
+                </div>
               </template>
             </el-table-column>
           </el-table>
@@ -234,7 +258,14 @@
         <el-button type="primary" :icon="Plus" @click="openQuestionDialog()">新增题目</el-button>
       </div>
 
-      <el-table :data="questions" v-loading="questionLoading" stripe max-height="520">
+      <el-table
+        :data="questions"
+        v-loading="questionLoading"
+        stripe
+        max-height="520"
+        class="assessment-table"
+        style="width: 100%"
+      >
         <el-table-column prop="sortOrder" label="序号" width="70" />
         <el-table-column prop="id" label="ID" width="70" />
         <el-table-column prop="content" label="题干" min-width="240" />
@@ -258,14 +289,16 @@
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="150">
+        <el-table-column label="操作" width="180" align="center" header-align="center">
           <template #default="{ row }">
-            <el-button link type="warning" :icon="Edit" @click="openQuestionDialog(row)">
-              编辑
-            </el-button>
-            <el-button link type="danger" :icon="Delete" @click="removeQuestion(row)">
-              删除
-            </el-button>
+            <div class="table-actions">
+              <el-button link type="warning" :icon="Edit" @click="openQuestionDialog(row)">
+                编辑
+              </el-button>
+              <el-button link type="danger" :icon="Delete" @click="removeQuestion(row)">
+                删除
+              </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -701,6 +734,46 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.assessment-table {
+  width: 100%;
+}
+
+.assessment-table :deep(.el-table__inner-wrapper),
+.assessment-table :deep(.el-table__header-wrapper),
+.assessment-table :deep(.el-table__body-wrapper) {
+  width: 100%;
+}
+
+.table-actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.table-actions :deep(.el-button) {
+  height: 30px;
+  min-height: 30px;
+  margin-left: 0 !important;
+  padding: 0 8px !important;
+  flex: 0 0 auto;
+  gap: 3px;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.table-actions :deep(.el-button + .el-button) {
+  margin-left: 0 !important;
+}
+
+.table-actions :deep(.el-icon) {
+  margin-right: 0;
+}
+
 .tab-label {
   display: inline-flex;
   align-items: center;
@@ -731,7 +804,7 @@ onMounted(() => {
   color: var(--text-main);
 }
 .answers-box {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.58);
   border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 12px 16px;

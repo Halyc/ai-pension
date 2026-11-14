@@ -48,7 +48,7 @@
             <span v-else class="muted">—</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" fixed="right">
+        <el-table-column label="操作" width="220" fixed="right" align="center" header-align="center">
           <template #default="{ row }">
             <div style="display:flex; align-items:center; white-space:nowrap; gap:4px">
               <el-button link type="primary" :icon="View" @click="showRecordDetail(row)">详情</el-button>
@@ -198,13 +198,13 @@ onMounted(() => {
   margin-left: 4px;
 }
 
-.user-name { font-weight: 600; color: #1f2937; }
-.user-phone { font-size: 12px; color: #9ca3af; }
+.user-name { font-weight: 600; color: var(--text-main); }
+.user-phone { font-size: 12px; color: var(--text-muted); }
 .mono { font-family: 'SF Mono', Consolas, monospace; }
-.muted { color: #9ca3af; }
-.divider { color: #d1d5db; margin: 0 4px; }
+.muted { color: var(--text-muted); }
+.divider { color: rgba(95, 115, 109, 0.35); margin: 0 4px; }
 
 .detail-section { margin-top: 16px; }
-.detail-subtitle { font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px; }
-.detail-muted { color: #9ca3af; font-size: 13px; padding: 8px 0; }
+.detail-subtitle { font-weight: 600; color: var(--text-main); margin-bottom: 8px; font-size: 14px; }
+.detail-muted { color: var(--text-muted); font-size: 13px; padding: 8px 0; }
 </style>

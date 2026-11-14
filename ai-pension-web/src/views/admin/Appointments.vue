@@ -22,14 +22,20 @@
       </div>
 
       <el-table :data="tableData" v-loading="loading" stripe>
-        <el-table-column prop="id" label="预约ID" width="80" />
-        <el-table-column prop="userName" label="会员姓名" width="120">
+        <el-table-column prop="id" label="预约ID" width="80" align="center" header-align="center" />
+        <el-table-column prop="userName" label="会员姓名" width="120" align="center" header-align="center">
           <template #default="{ row }">{{ row.userName || '-' }}</template>
         </el-table-column>
-        <el-table-column prop="packageName" label="体检套餐" min-width="160">
+        <el-table-column
+          prop="packageName"
+          label="体检套餐"
+          min-width="160"
+          align="center"
+          header-align="center"
+        >
           <template #default="{ row }">{{ row.packageName || '-' }}</template>
         </el-table-column>
-        <el-table-column label="预约时段" min-width="180">
+        <el-table-column label="预约时段" min-width="180" align="center" header-align="center">
           <template #default="{ row }">
             <template v-if="row.appointDate || row.timeRange">
               {{ row.appointDate || '' }} <span v-if="row.appointDate && row.timeRange">·</span> {{ row.timeRange || '' }}
@@ -37,14 +43,20 @@
             <span v-else class="text-sub">-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="status" label="状态" width="100" align="center" header-align="center">
           <template #default="{ row }">
             <el-tag :type="dictType(appointmentStatusMap, row.status)">
               {{ dictLabel(appointmentStatusMap, row.status) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="reportUrl" label="体检报告" min-width="180">
+        <el-table-column
+          prop="reportUrl"
+          label="体检报告"
+          min-width="180"
+          align="center"
+          header-align="center"
+        >
           <template #default="{ row }">
             <el-link
               v-if="row.reportUrl"
@@ -57,10 +69,16 @@
             <span v-else class="text-sub">-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="预约时间" min-width="160">
+        <el-table-column
+          prop="createTime"
+          label="预约时间"
+          min-width="160"
+          align="center"
+          header-align="center"
+        >
           <template #default="{ row }">{{ formatDateTime(row.createTime) }}</template>
         </el-table-column>
-        <el-table-column label="操作" min-width="220">
+        <el-table-column label="操作" min-width="270" align="center" header-align="center">
           <template #default="{ row }">
             <template v-if="row.status === 'CONFIRMED'">
               <el-button link type="primary" :icon="UploadFilled" @click="openUploadDialog(row)">
@@ -372,7 +390,7 @@ onMounted(loadList)
   justify-content: flex-end;
 }
 .text-sub {
-  color: #b6bdc9;
+  color: var(--text-muted);
 }
 .confirm-info {
   font-size: 14px;
@@ -382,50 +400,50 @@ onMounted(loadList)
   display: flex;
   align-items: center;
   padding: 4px 0;
-  border-bottom: 1px dashed #f0f0f0;
+  border-bottom: 1px dashed var(--border-light);
 }
 .info-row:last-of-type {
   border-bottom: none;
 }
 .info-label {
   width: 80px;
-  color: #909399;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 .info-value {
-  color: #303133;
+  color: var(--text-main);
   font-weight: 500;
 }
 .info-value.highlight {
-  color: #409eff;
+  color: var(--primary-color);
   font-size: 15px;
 }
 .info-sub {
-  color: #b6bdc9;
+  color: var(--text-muted);
   font-size: 12px;
   margin-left: 8px;
 }
 .confirm-tip {
   margin-top: 12px;
-  color: #f56c6c;
+  color: var(--danger);
   font-weight: 500;
 }
 .upload-hint {
   margin-left: 8px;
-  color: #909399;
+  color: var(--text-muted);
   font-size: 12px;
 }
 .upload-section {
   margin-top: 12px;
   padding: 12px;
-  background: #f7f9fc;
+  background: rgba(237, 245, 242, 0.75);
   border-radius: 6px;
-  border: 1px dashed #dcdfe6;
+  border: 1px dashed rgba(47, 125, 109, 0.2);
 }
 .upload-label {
   font-size: 13px;
   font-weight: 500;
-  color: #303133;
+  color: var(--text-main);
   margin-bottom: 8px;
   display: flex;
   align-items: center;

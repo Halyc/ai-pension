@@ -1,0 +1,303 @@
+/*
+ * Admin visual theme
+ * Scoped to the admin layout and its teleported overlays so the member area
+ * and login page keep their existing presentation.
+ */
+.admin-layout,
+body.admin-theme {
+  --primary: #2f7d6d;
+  --primary-color: #2f7d6d;
+  --primary-2: #d9963e;
+  --primary-3: #6aa596;
+  --accent-color: #d9963e;
+  --accent-gradient: linear-gradient(135deg, #e1ad63 0%, #d08b30 100%);
+  --primary-gradient: linear-gradient(135deg, #347f70 0%, #1f6559 100%);
+  --mint-gradient: linear-gradient(135deg, #8bc6b4 0%, #4f9b7b 100%);
+  --warm-gradient: linear-gradient(135deg, #fbf1df 0%, #ecd09d 100%);
+  --bg-gradient: linear-gradient(135deg, #f8f5ee 0%, #eff6f2 52%, #f9f6ef 100%);
+  --bg-deep: #f4f7f3;
+  --card-bg: rgba(255, 255, 255, 0.84);
+  --card-border: rgba(222, 233, 228, 0.92);
+  --card-shadow: 0 10px 30px rgba(38, 76, 65, 0.07), 0 2px 8px rgba(38, 76, 65, 0.035);
+  --card-shadow-hover: 0 16px 38px rgba(38, 76, 65, 0.11), 0 4px 10px rgba(38, 76, 65, 0.05);
+  --text-main: #19352f;
+  --text-sub: #5f736d;
+  --text-muted: #8b9b96;
+  --text-light: #8b9b96;
+  --border-light: rgba(40, 74, 65, 0.09);
+  --nav-bg: rgba(255, 255, 255, 0.76);
+  --nav-item-hover: rgba(47, 125, 109, 0.07);
+  --nav-item-active: rgba(47, 125, 109, 0.12);
+  --success: #4f9b7b;
+  --success-color: #4f9b7b;
+  --warning: #d9963e;
+  --danger: #cf7064;
+  --el-color-primary: #2f7d6d;
+  --el-color-primary-light-3: #6aa596;
+  --el-color-primary-light-5: #96c0b4;
+  --el-color-primary-light-7: #c2dbd4;
+  --el-color-primary-light-8: #d7e8e3;
+  --el-color-primary-light-9: #edf5f2;
+  --el-color-primary-dark-2: #1f6559;
+  --el-color-success: #4f9b7b;
+  --el-color-warning: #d9963e;
+  --el-color-danger: #cf7064;
+  --el-color-info: #7d8f89;
+  --el-border-radius-base: 12px;
+  --el-border-radius-small: 10px;
+  --el-text-color-primary: #19352f;
+  --el-text-color-regular: #5f736d;
+  --el-text-color-secondary: #8b9b96;
+  --el-fill-color-blank: rgba(255, 255, 255, 0.9);
+  --el-bg-color: #fffdf8;
+}
+
+body.admin-theme {
+  background: var(--bg-gradient);
+}
+
+body.admin-theme::before {
+  background-image:
+    radial-gradient(circle at 94% 4%, rgba(217, 150, 62, 0.09), transparent 24%),
+    radial-gradient(circle at 8% 92%, rgba(47, 125, 109, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(248, 250, 248, 0.46), rgba(244, 247, 244, 0.12));
+}
+
+.admin-layout {
+  background:
+    radial-gradient(circle at 96% 3%, rgba(217, 150, 62, 0.07), transparent 24%),
+    linear-gradient(135deg, #f8f5ee 0%, #eff6f2 52%, #f9f6ef 100%);
+}
+
+.admin-layout .main-content {
+  background: transparent;
+}
+
+.admin-layout .page-container {
+  color: var(--text-main);
+}
+
+.admin-layout .page-card,
+.admin-layout .glass-card,
+.admin-layout .el-card {
+  border-color: var(--card-border) !important;
+  background: var(--card-bg) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+.admin-layout .page-card:hover,
+.admin-layout .glass-card:hover,
+.admin-layout .el-card:hover {
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+.admin-layout .page-title,
+.admin-layout .page-container h1,
+.admin-layout .page-container h2,
+.admin-layout .page-container h3 {
+  color: var(--text-main);
+}
+
+.admin-layout .page-title .el-icon {
+  color: var(--primary-color);
+}
+
+body.admin-theme .el-button--primary {
+  background: var(--primary-gradient) !important;
+  box-shadow: 0 5px 16px rgba(31, 101, 89, 0.24) !important;
+}
+
+body.admin-theme .el-button--primary:hover {
+  box-shadow: 0 8px 22px rgba(31, 101, 89, 0.32) !important;
+}
+
+body.admin-theme .el-button--success {
+  background: linear-gradient(135deg, #6aa596 0%, #3e856b 100%) !important;
+  box-shadow: 0 4px 14px rgba(62, 133, 107, 0.22);
+}
+
+body.admin-theme .el-button--danger {
+  color: #fff !important;
+  background: linear-gradient(135deg, #c95f53 0%, #a8433a 100%) !important;
+  border-color: #a8433a !important;
+  box-shadow: 0 4px 14px rgba(168, 67, 58, 0.24) !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 1px rgba(88, 24, 19, 0.22);
+}
+
+body.admin-theme .el-button--danger:hover,
+body.admin-theme .el-button--danger:focus {
+  color: #fff !important;
+  background: linear-gradient(135deg, #d66b5f 0%, #b34a40 100%) !important;
+  border-color: #b34a40 !important;
+  box-shadow: 0 6px 18px rgba(168, 67, 58, 0.3) !important;
+}
+
+body.admin-theme .el-button--danger.is-disabled,
+body.admin-theme .el-button--danger.is-disabled:hover {
+  color: rgba(255, 255, 255, 0.92) !important;
+  background: linear-gradient(135deg, #cf9189 0%, #b97870 100%) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body.admin-theme .el-button--danger .el-icon {
+  color: currentColor !important;
+}
+
+body.admin-theme .el-button--info {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-sub) !important;
+}
+
+body.admin-theme .el-button--info:hover {
+  color: var(--primary-color) !important;
+  border-color: rgba(47, 125, 109, 0.28) !important;
+  background: rgba(47, 125, 109, 0.06) !important;
+}
+
+body.admin-theme .el-input__wrapper,
+body.admin-theme .el-textarea__inner,
+body.admin-theme .el-select__wrapper {
+  background: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 0 0 1px var(--border-light) inset !important;
+}
+
+body.admin-theme .el-input__wrapper.is-focus,
+body.admin-theme .el-input__wrapper.is-focus-within,
+body.admin-theme .el-select__wrapper.is-focused,
+body.admin-theme .el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px var(--primary-color) inset !important;
+}
+
+body.admin-theme .el-table {
+  width: 100% !important;
+  --el-table-header-bg-color: rgba(47, 125, 109, 0.065);
+  --el-table-row-hover-bg-color: rgba(47, 125, 109, 0.045);
+  --el-table-current-row-bg-color: rgba(47, 125, 109, 0.07);
+  --el-table-border-color: rgba(40, 74, 65, 0.075);
+  --el-table-text-color: var(--text-sub);
+  --el-table-header-text-color: var(--text-main);
+}
+
+body.admin-theme .el-table th.el-table__cell:last-child,
+body.admin-theme .el-table td.el-table__cell:last-child {
+  text-align: center !important;
+}
+
+body.admin-theme .page-card .el-table th.el-table__cell:last-child .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+body.admin-theme .page-card .el-table td.el-table__cell:last-child > .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 7px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+body.admin-theme .page-card .el-table td.el-table__cell:last-child .el-button {
+  min-height: 30px;
+  margin-left: 0 !important;
+  padding: 0 8px !important;
+  flex: 0 0 auto;
+  gap: 3px;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap !important;
+}
+
+body.admin-theme .page-card .el-table td.el-table__cell:last-child .el-button + .el-button {
+  margin-left: 0 !important;
+}
+
+body.admin-theme .page-card .el-table td.el-table__cell:last-child .el-icon {
+  margin-right: 0;
+}
+
+body.admin-theme .el-table th.el-table__cell {
+  background: rgba(47, 125, 109, 0.065) !important;
+}
+
+body.admin-theme .el-table tr:hover > td.el-table__cell {
+  background: rgba(47, 125, 109, 0.045) !important;
+}
+
+body.admin-theme .el-dialog,
+body.admin-theme .el-message-box {
+  background: rgba(255, 253, 248, 0.96) !important;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 22px 60px rgba(35, 77, 65, 0.16) !important;
+}
+
+body.admin-theme .el-dialog__header,
+body.admin-theme .el-message-box__header {
+  border-bottom-color: var(--border-light);
+}
+
+body.admin-theme .el-pagination.is-background .el-pager li.is-active {
+  background: var(--primary-color) !important;
+}
+
+body.admin-theme .el-pagination.is-background .el-pager li:not(.is-disabled):hover {
+  color: var(--primary-color) !important;
+}
+
+body.admin-theme .el-radio-button__original-radio:checked + .el-radio-button__inner {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: -1px 0 0 0 var(--primary-color) !important;
+}
+
+body.admin-theme .el-checkbox__input.is-checked .el-checkbox__inner,
+body.admin-theme .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+body.admin-theme .el-checkbox__input.is-checked + .el-checkbox__label {
+  color: var(--primary-color) !important;
+}
+
+body.admin-theme .el-switch.is-checked .el-switch__core {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+body.admin-theme .el-tabs__active-bar {
+  background: var(--primary-color) !important;
+}
+
+body.admin-theme .el-tabs__item.is-active,
+body.admin-theme .el-tabs__item:hover {
+  color: var(--primary-color) !important;
+}
+
+body.admin-theme .el-link.el-link--primary {
+  color: var(--primary-color) !important;
+}
+
+body.admin-theme .el-loading-spinner .path {
+  stroke: var(--primary-color) !important;
+}
+
+body.admin-theme .el-message {
+  border-color: var(--card-border) !important;
+  box-shadow: 0 12px 32px rgba(38, 76, 65, 0.12) !important;
+}
+
+body.admin-theme ::-webkit-scrollbar-thumb {
+  background: rgba(47, 125, 109, 0.24);
+}
+
+body.admin-theme ::-webkit-scrollbar-thumb:hover {
+  background: rgba(47, 125, 109, 0.4);
+}

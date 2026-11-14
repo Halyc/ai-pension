@@ -34,7 +34,7 @@
         </el-table-column>
         <el-table-column label="头像" width="80" align="center">
           <template #default="{ row }">
-            <el-avatar :size="36" :src="buildAvatar(row)">
+            <el-avatar :size="36" :src="adminAvatarSrc(row)" class="table-avatar">
               {{ (row.real_name || row.phone || 'U').charAt(0).toUpperCase() }}
             </el-avatar>
           </template>
@@ -45,7 +45,7 @@
         </el-table-column>
         <el-table-column prop="role" label="身份" min-width="100">
           <template #default="{ row }">
-            <el-tag :type="row.role === 'ADMIN' ? 'danger' : 'primary'" effect="light">
+            <el-tag :type="row.role === 'ADMIN' ? 'warning' : 'primary'" effect="light">
               {{ row.role === 'ADMIN' ? '管理员' : '会员' }}
             </el-tag>
           </template>
@@ -74,9 +74,9 @@
         <el-table-column prop="create_time" label="注册时间" min-width="160">
           <template #default="{ row }">{{ formatDateTime(row.create_time) }}</template>
         </el-table-column>
-        <el-table-column label="操作" min-width="320">
+        <el-table-column label="操作" min-width="360">
           <template #default="{ row }">
-            <template v-if="canOperate(row)">
+            <div v-if="canOperate(row)" class="member-actions">
               <el-button v-if="row.role !== 'ADMIN'" link type="primary" :icon="View" @click="showDetail(row)">详情</el-button>
               <el-button v-if="row.role !== 'ADMIN'" link type="warning" :icon="Medal" @click="openLevelDialog(row)">等级</el-button>
               <el-button v-if="row.role !== 'ADMIN'" link type="success" :icon="Coin" @click="openPointsDialog(row)">积分</el-button>
@@ -95,7 +95,7 @@
                 @click="toggleStatus(row, true)"
               >启用</el-button>
               <el-button link type="danger" :icon="Delete" @click="handleDelete(row)">删除</el-button>
-            </template>
+            </div>
             <span v-else class="text-muted">无权限</span>
           </template>
         </el-table-column>
@@ -122,7 +122,7 @@
         <div class="detail-header">
           <el-avatar
             :size="64"
-            :src="buildAvatar(detail.member)"
+            :src="adminAvatarSrc(detail.member)"
             class="member-avatar"
           >
             {{ (detail.member.real_name || detail.member.phone || 'U').charAt(0).toUpperCase() }}
@@ -287,6 +287,11 @@ import {
 } from '@/utils/format'
 
 const userStore = useUserStore()
+
+function adminAvatarSrc(row) {
+  const src = buildAvatar(row)
+  return src.startsWith('data:image/svg+xml') ? '' : src
+}
 
 const loading = ref(false)
 const tableData = ref([])
@@ -532,9 +537,33 @@ onMounted(() => {
   display: flex;
   justify-content: flex-end;
 }
+.member-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  white-space: nowrap;
+}
+.member-actions :deep(.el-button) {
+  height: 30px;
+  min-height: 30px;
+  margin-left: 0 !important;
+  padding: 0 7px !important;
+  flex: 0 0 auto;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap !important;
+}
+.member-actions :deep(.el-button + .el-button) {
+  margin-left: 0 !important;
+}
+.member-actions :deep(.el-icon) {
+  margin-right: 0;
+}
 .form-hint {
   font-size: 12px;
-  color: #909399;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 .detail-header {
@@ -543,7 +572,8 @@ onMounted(() => {
   gap: 14px;
   padding: 14px 16px;
   margin-bottom: 14px;
-  background: linear-gradient(120deg, rgba(102, 126, 234, 0.12), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(120deg, rgba(47, 125, 109, 0.1), rgba(255, 255, 255, 0.55));
+  border: 1px solid rgba(47, 125, 109, 0.08);
   border-radius: 12px;
 }
 .member-avatar {
@@ -551,7 +581,13 @@ onMounted(() => {
   color: #fff !important;
   font-size: 24px;
   flex-shrink: 0;
-  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 18px rgba(31, 101, 89, 0.22);
+}
+.table-avatar {
+  background: linear-gradient(145deg, #6aa596, #2f7d6d) !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(31, 101, 89, 0.16);
 }
 .detail-header-info {
   flex: 1;
@@ -570,16 +606,16 @@ onMounted(() => {
 .reset-password-section {
   margin-top: 18px;
   padding: 14px 16px;
-  background: #fdf6ec;
+  background: #fbf1df;
   border-radius: 8px;
-  border: 1px solid #faecd8;
+  border: 1px solid #ecd09d;
   text-align: center;
 }
 .reset-password-section .form-hint {
   margin-top: 6px;
 }
 .text-muted {
-  color: #c0c4cc;
+  color: var(--text-muted);
   font-size: 13px;
 }
 </style>

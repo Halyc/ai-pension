@@ -39,11 +39,11 @@
       </div>
 
       <el-table :data="logs" v-loading="loading" stripe>
-        <el-table-column prop="id" label="ID" width="72" />
-        <el-table-column label="操作时间" width="168">
+        <el-table-column prop="id" label="ID" width="64" />
+        <el-table-column label="操作时间" width="160">
           <template #default="{ row }">{{ formatLogTime(row.operate_time) }}</template>
         </el-table-column>
-        <el-table-column label="操作人" min-width="150">
+        <el-table-column label="操作人" min-width="140">
           <template #default="{ row }">
             <div class="operator-name">{{ row.user_real_name || row.user_name || '匿名用户' }}</div>
             <div class="operator-meta">
@@ -54,7 +54,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="操作内容" min-width="180">
+        <el-table-column label="操作内容" min-width="170">
           <template #default="{ row }">
             <div class="operation-name">{{ row.operation || '-' }}</div>
             <div class="operation-meta">
@@ -64,7 +64,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="请求地址" min-width="240">
+        <el-table-column label="请求地址" min-width="220">
           <template #default="{ row }">
             <div class="request-line">
               <el-tag size="small" :type="methodTagType(row.request_method)">
@@ -76,26 +76,34 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="状态" width="86">
+        <el-table-column label="状态" width="76">
           <template #default="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'danger'" effect="light">
               {{ row.status === 1 ? '成功' : '失败' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="耗时" width="90">
+        <el-table-column label="耗时" width="80">
           <template #default="{ row }">
             <span class="duration" :class="{ slow: row.cost_time >= 1000 }">
               {{ row.cost_time ?? '-' }} ms
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="ip" label="IP" min-width="130">
+        <el-table-column prop="ip" label="IP" min-width="120">
           <template #default="{ row }">{{ row.ip || '-' }}</template>
         </el-table-column>
-        <el-table-column label="操作" width="90" fixed="right">
+        <el-table-column label="操作" width="108" fixed="right" align="center">
           <template #default="{ row }">
-            <el-button link type="primary" :icon="View" @click="showDetail(row)">详情</el-button>
+            <el-button
+              link
+              type="primary"
+              :icon="View"
+              class="detail-action-button"
+              @click="showDetail(row)"
+            >
+              详情
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -307,9 +315,37 @@ onMounted(loadLogs)
   width: 360px;
 }
 
+.detail-action-button.el-button {
+  width: 72px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 10px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #fff !important;
+  background: var(--primary-gradient) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 12px rgba(31, 101, 89, 0.2) !important;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.detail-action-button.el-button:hover {
+  color: #fff !important;
+  background: linear-gradient(135deg, #3b8a79 0%, #246f62 100%) !important;
+  box-shadow: 0 6px 16px rgba(31, 101, 89, 0.28) !important;
+}
+
+.detail-action-button :deep(.el-icon) {
+  margin-right: 0;
+}
+
 .operator-name,
 .operation-name {
-  color: #1f2937;
+  color: var(--text-main);
   font-weight: 600;
 }
 
@@ -319,7 +355,7 @@ onMounted(loadLogs)
   align-items: center;
   gap: 6px;
   margin-top: 3px;
-  color: #9aa3b2;
+  color: var(--text-muted);
   font-size: 12px;
 }
 
@@ -334,19 +370,19 @@ onMounted(loadLogs)
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #5b6478;
+  color: var(--text-sub);
   font-family: 'SF Mono', Consolas, monospace;
   font-size: 12px;
 }
 
 .duration {
-  color: #475569;
+  color: #50665f;
   font-family: 'SF Mono', Consolas, monospace;
   font-size: 12px;
 }
 
 .duration.slow {
-  color: #e67e22;
+  color: #b97c2d;
   font-weight: 600;
 }
 
@@ -357,7 +393,7 @@ onMounted(loadLogs)
 }
 
 .log-detail {
-  color: #374151;
+  color: var(--text-sub);
 }
 
 .detail-url {
@@ -367,13 +403,13 @@ onMounted(loadLogs)
 }
 
 .method-code {
-  color: #53627c;
+  color: #60756e;
   font-size: 12px;
   word-break: break-all;
 }
 
 .ua-text {
-  color: #7b8496;
+  color: var(--text-muted);
   font-size: 12px;
   word-break: break-all;
 }
@@ -384,13 +420,13 @@ onMounted(loadLogs)
 
 .detail-heading {
   margin-bottom: 8px;
-  color: #1f2937;
+  color: var(--text-main);
   font-size: 14px;
   font-weight: 600;
 }
 
 .detail-heading.error-heading {
-  color: #d14343;
+  color: #c7665b;
 }
 
 .code-panel {
@@ -398,10 +434,10 @@ onMounted(loadLogs)
   overflow: auto;
   margin: 0;
   padding: 14px;
-  border: 1px solid rgba(74, 144, 226, 0.12);
+  border: 1px solid rgba(106, 165, 150, 0.2);
   border-radius: 12px;
-  background: rgba(30, 41, 59, 0.96);
-  color: #dbeafe;
+  background: rgba(25, 53, 47, 0.96);
+  color: #d7e8e3;
   font-family: 'SF Mono', Consolas, monospace;
   font-size: 12px;
   line-height: 1.65;
